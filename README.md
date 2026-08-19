@@ -92,15 +92,18 @@ Design notes worth knowing before you edit the `<style>` block:
 
 The deploy workflow **fails on purpose** until these are done.
 
-1. **Fill in the placeholders.** The contact email
-   (`REPLACE_ME@gogrumble.app`) and the Instagram handle (`REPLACE_ME_HANDLE`)
-   appear in `public/index.html` and `public/for-creators/index.html`. CI greps
-   `public/` for `REPLACE_ME` and refuses to publish while any remain — so the
-   **first deploy will fail on purpose** until this is done. Find them with:
+1. ~~**Fill in the placeholders.**~~ **Done.** The contact email is
+   `grumbleteam@gmail.com` and the handle is `@go_grumble`, in
+   `public/index.html` and `public/for-creators/index.html`. The CI guard is
+   still there and still greps `public/` for `REPLACE_ME`, so if you add a new
+   page with a placeholder in it the deploy will refuse again — which is the
+   point. Two things worth doing when you get to them:
 
-   ```bash
-   grep -rn REPLACE_ME public/
-   ```
+   - **`grumbleteam@gmail.com` is a Gmail address on a public page.** Moving to
+     `hello@gogrumble.app` needs mail routing on the domain (Cloudflare Email
+     Routing does it free) and then a one-line change in both files.
+   - **Check `@go_grumble` is actually yours.** A handle you don't own sends
+     everyone who reads the page to a stranger.
 2. **Make the share image** (optional but worth it — the page will be shared as
    a link before it's ever visited): run `python3 tools/make-og.py` on a machine
    with internet, then uncomment the `og:image` and `twitter:card` lines in
