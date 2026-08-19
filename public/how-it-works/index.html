@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en-AU" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How it works — grumble</title>
+<meta name="description" content="What happens between sending a cooking reel to grumble and getting a priced basket back: extraction, matching, pack sizing, and the flags in between.">
+<meta name="theme-color" content="#FFF9EE" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14100C" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://gogrumble.app/how-it-works/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gogrumble.app/how-it-works/">
+<meta property="og:title" content="How it works — grumble">
+<meta property="og:description" content="What happens between sending a cooking reel to grumble and getting a priced basket back: extraction, matching, pack sizing, and the flags in between.">
+<meta property="og:site_name" content="grumble">
+<!-- Share image: run tools/make-og.py on a machine with internet (it needs the
+     real brand fonts), then uncomment these two lines. Pointing at an image
+     that doesn't exist yet is worse than having none. -->
+<!-- <meta property="og:image" content="https://gogrumble.app/assets/og.png"> -->
+<!-- <meta name="twitter:card" content="summary_large_image"> -->
+
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Schibsted+Grotesk:wght@400;500;600&family=Spline+Sans+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/grumble.css">
+<!-- Sets the JS flag before first paint so JS-only controls never flash in and
+     out. Everything else on the site works with this file blocked. -->
+<script>document.documentElement.classList.remove('no-js')</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="rumble-line" viewBox="0 0 480 24" preserveAspectRatio="none">
+    <path d="M0 12 L14 12 L20 6 L26 18 L32 3 L38 21 L44 8 L50 16 L56 11 L62 13 L70 12 L84 12 L90 7 L96 17 L102 2 L108 22 L114 9 L120 15 L126 12 L140 12 L154 12 L160 5 L166 19 L172 8 L178 16 L184 10 L190 14 L196 12 L212 12 L226 12 L232 4 L238 20 L244 7 L250 17 L256 11 L262 13 L268 12 L284 12 L298 12 L304 6 L310 18 L316 3 L322 21 L328 9 L334 15 L340 12 L356 12 L370 12 L376 7 L382 17 L388 5 L394 19 L400 10 L406 14 L412 12 L428 12 L442 12 L448 8 L454 16 L460 11 L466 13 L472 12 L480 12"
+          fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+          stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+  </symbol>
+</svg>
+
+<div class="topbar">
+  <div class="topbar__in">
+    <a class="brand" href="/">grumble</a>
+    <nav class="nav nav--top" aria-label="Main"><a class="nav__link" href="/how-it-works/" aria-current="page">How it works</a><a class="nav__link" href="/demo/">Demo</a><a class="nav__link" href="/for-creators/">For creators</a></nav>
+    <!-- Honest status. grumble is not open to the public: the DM channel is not
+         live yet. Do not soften this line until it is actually true. -->
+    <span class="status status--sm"><span class="status__long">In development — not open yet</span><span class="status__short">Not open yet</span></span>
+  </div>
+  <nav class="nav nav--sub" aria-label="Main"><a class="nav__link" href="/how-it-works/" aria-current="page">How it works</a><a class="nav__link" href="/demo/">Demo</a><a class="nav__link" href="/for-creators/">For creators</a></nav>
+</div>
+
+<main id="main">
+
+<section class="page-head shell shell--narrow">
+  <p class="eyebrow">How it works</p>
+  <h1>A reel goes in. A shopping list comes out.</h1>
+  <p class="lede">Five steps, and the interesting parts are the places where grumble
+  admits it isn't sure.</p>
+</section>
+
+<section class="shell shell--narrow prose" style="margin-top:var(--s7)">
+  <h2>1 · You send the reel</h2>
+  <p>You share a cooking video to grumble's Instagram DMs, the same way you'd send
+  it to a friend. There's no app to install and no account to create. The DM is the
+  whole interface, which is the point: the moment you want to cook something is the
+  moment you're already in Instagram.</p>
+
+  <h2>2 · grumble watches the video</h2>
+  <p>A model reads the video and rebuilds the recipe from it — ingredients,
+  quantities, and the method. Two things happen here that are worth naming:</p>
+  <ul>
+    <li><strong>Anything the video didn't actually say gets marked as an estimate.</strong>
+    Reels rarely say "four cloves". If the quantity was inferred rather than seen,
+    it carries an <span class="chip chip--est">Estimated</span> chip instead of
+    quietly becoming a number.</li>
+    <li><strong>The method is rewritten in grumble's own words.</strong> It isn't
+    lifted from the caption. <a href="/for-creators/">More on that here</a>.</li>
+  </ul>
+
+  <h2>3 · Every ingredient is matched to a real product</h2>
+  <p>"200 g thin wheat noodles" is not a thing you can buy. A 375 g pack is. Matching
+  turns each ingredient into a specific product, and then does the arithmetic nobody
+  enjoys: how many packs that quantity actually needs.</p>
+  <div class="callout">
+    <p>This is why the serves control on the <a href="/demo/">sample basket</a> is
+    worth playing with. Doubling the recipe doesn't double the shopping. One pack of
+    noodles covers two people; four people need two packs; the chilli flakes tip over
+    into a second jar while the garlic doesn't move at all.</p>
+  </div>
+
+  <h2>4 · Anything uncertain is flagged, not smoothed over</h2>
+  <p>A match can be wrong in ways that matter. "Chilli flakes" could be Sichuan or
+  Korean, and they are not the same heat. When confidence is low, the item gets a
+  <span class="chip chip--check">Check this</span> chip with a reason in plain
+  English, and it goes to a human review queue rather than being silently accepted.</p>
+  <p>Pantry staples — oil, vinegar, the things most kitchens already have — are set
+  aside so the list stays short. They are never deleted, and you can add any of them
+  back with one tap. <strong>Common allergens are never put in that group</strong>,
+  however ordinary the ingredient is.</p>
+
+  <h2>5 · You order it, not grumble</h2>
+  <p>You get a link to the basket. Scale it, drop what's already in your cupboard,
+  then hand off into your supermarket's own app to confirm and pay.</p>
+  <div class="callout callout--warn">
+    <p><strong>grumble does not place orders.</strong> The hand-off takes you to the
+    checkout; you're the one who completes it. Any copy on this site that sounds
+    otherwise is a bug — tell us.</p>
+  </div>
+
+  <h2>What isn't built yet</h2>
+  <p>grumble is in development and the DM channel is not open. What exists today is
+  the pipeline — extraction, matching, pack sizing, confidence flags — and a demo
+  that runs real reels through it ahead of time. What doesn't exist is a live service
+  you can send a video to tonight. When that changes, this page changes.</p>
+</section>
+
+<div class="shell"><span class="rumble rumble--divider" aria-hidden="true"><svg><use href="#rumble-line"/></svg></span></div>
+
+<section class="shell reveal">
+  <div class="panel">
+    <h2>See it on a real example.</h2>
+    <p>The sample basket is the same shape as the real thing, flags and all.</p>
+    <div class="cta-row">
+      <a class="btn" href="/demo/">Open the sample basket</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="shell">
+  <span class="rumble rumble--divider" aria-hidden="true"><svg><use href="#rumble-line"/></svg></span>
+  <div class="footer__grid">
+    <div>
+      <p class="footer__mark">grumble</p>
+      <p style="margin:8px 0 0">From the reel to the meal.</p>
+    </div>
+    <div>
+      <p class="footer__h">Pages</p>
+      <ul class="footer__list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/how-it-works/">How it works</a></li>
+        <li><a href="/demo/">Demo basket</a></li>
+        <li><a href="/for-creators/">For creators</a></li>
+        <li><a href="/privacy/">Your video and your data</a></li>
+      </ul>
+    </div>
+    <div class="footer__legal">
+      <p>grumble is an independent student project. It is not affiliated with,
+      endorsed by, or partnered with Instagram, Meta, or any supermarket.</p>
+      <p>Recipes are reconstructed from publicly shared videos and always credit the
+      original creator.</p>
+      <p>grumble does not place orders. You check out in your supermarket's own app.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

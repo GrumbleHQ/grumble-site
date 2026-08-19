@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<title>grumble og image</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Spline+Sans+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  /* Same palette and hero furniture as public/index.html, at share-card scale.
+     Keep the font list identical to the page's — make-og.py aborts if a Google
+     Fonts request fails, and a family that isn't requested here can't be caught
+     by that check. */
+  html,body{margin:0;padding:0}
+  body{
+    width:1200px;height:630px;background:#FFF9EE;color:#231A15;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:0 90px;box-sizing:border-box;
+    font-family:"Bricolage Grotesque","Arial Black",sans-serif;
+    background-image:
+      radial-gradient(760px 420px at 88% -12%, rgba(255,216,77,.65), transparent 62%),
+      radial-gradient(560px 340px at 2% 8%, rgba(228,87,46,.22), transparent 60%);
+    background-repeat:no-repeat;
+  }
+  .pill{
+    align-self:flex-start;display:inline-flex;align-items:center;gap:12px;
+    background:#FFD84D;border:2px solid #231A15;border-radius:999px;
+    padding:9px 22px 9px 18px;margin:0 0 34px;
+    font-family:"Spline Sans Mono",monospace;font-size:21px;
+    letter-spacing:.08em;text-transform:uppercase;
+  }
+  .pill::before{content:"";width:12px;height:12px;border-radius:50%;background:#E4572E}
+  h1{font-weight:800;font-size:132px;letter-spacing:-.045em;line-height:.92;margin:0}
+  h1 em{font-style:normal;color:#E4572E}
+  .rumble{display:block;width:100%;height:30px;color:#E4572E;margin:18px 0 0}
+  .rumble svg{display:block;width:100%;height:100%}
+  p{
+    font-family:"Spline Sans Mono",monospace;font-size:27px;letter-spacing:.09em;
+    text-transform:uppercase;color:rgba(35,26,21,.68);margin:32px 0 0;
+  }
+</style>
+</head>
+<body>
+  <span class="pill">In development — not open yet</span>
+  <h1>From the reel<br>to the <em>meal</em>.</h1>
+  <span class="rumble">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 24" preserveAspectRatio="none">
+      <path d="M0 12 L14 12 L20 6 L26 18 L32 3 L38 21 L44 8 L50 16 L56 11 L62 13 L70 12 L84 12 L90 7 L96 17 L102 2 L108 22 L114 9 L120 15 L126 12 L140 12 L154 12 L160 5 L166 19 L172 8 L178 16 L184 10 L190 14 L196 12 L212 12 L226 12 L232 4 L238 20 L244 7 L250 17 L256 11 L262 13 L268 12 L284 12 L298 12 L304 6 L310 18 L316 3 L322 21 L328 9 L334 15 L340 12 L356 12 L370 12 L376 7 L382 17 L388 5 L394 19 L400 10 L406 14 L412 12 L428 12 L442 12 L448 8 L454 16 L460 11 L466 13 L472 12 L480 12"
+            fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"
+            stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    </svg>
+  </span>
+  <p>grumble &nbsp;·&nbsp; gogrumble.app</p>
+</body>
+</html>

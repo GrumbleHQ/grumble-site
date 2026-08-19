@@ -1,0 +1,52 @@
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Structural guard, same idea as the demo's sample-data ribbon: the build
+      # refuses rather than trusting anyone to remember. If this fails, fill in
+      # the real contact email and Instagram handle in public/index.html.
+      - name: Refuse to publish placeholder copy
+        run: |
+          if grep -rn "REPLACE_ME" public/; then
+            echo "::error::Placeholder values are still in the page. Fill them in before deploying."
+            exit 1
+          fi
+          echo "No placeholders found."
+
+      # The .app TLD is HSTS-preloaded, so the site is unreachable over plain
+      # http. A missing or wrong CNAME means no certificate and a dead domain,
+      # not just an ugly URL.
+      - name: Check the custom domain is still declared
+        run: |
+          test -f public/CNAME || { echo "::error::public/CNAME is missing."; exit 1; }
+          grep -qx "gogrumble.app" public/CNAME || { echo "::error::public/CNAME does not say gogrumble.app."; exit 1; }
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

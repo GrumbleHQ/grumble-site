@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en-AU" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sample basket — grumble</title>
+<meta name="description" content="A worked example of what grumble sends back: every ingredient matched to a product, scaled to how many you're feeding, with anything uncertain flagged.">
+<meta name="theme-color" content="#FFF9EE" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14100C" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://gogrumble.app/demo/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gogrumble.app/demo/">
+<meta property="og:title" content="Sample basket — grumble">
+<meta property="og:description" content="A worked example of what grumble sends back: every ingredient matched to a product, scaled to how many you're feeding, with anything uncertain flagged.">
+<meta property="og:site_name" content="grumble">
+<!-- Share image: run tools/make-og.py on a machine with internet (it needs the
+     real brand fonts), then uncomment these two lines. Pointing at an image
+     that doesn't exist yet is worse than having none. -->
+<!-- <meta property="og:image" content="https://gogrumble.app/assets/og.png"> -->
+<!-- <meta name="twitter:card" content="summary_large_image"> -->
+
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Schibsted+Grotesk:wght@400;500;600&family=Spline+Sans+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/grumble.css">
+<!-- Sets the JS flag before first paint so JS-only controls never flash in and
+     out. Everything else on the site works with this file blocked. -->
+<script>document.documentElement.classList.remove('no-js')</script>
+<script src="/assets/demo.js" defer></script>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="rumble-line" viewBox="0 0 480 24" preserveAspectRatio="none">
+    <path d="M0 12 L14 12 L20 6 L26 18 L32 3 L38 21 L44 8 L50 16 L56 11 L62 13 L70 12 L84 12 L90 7 L96 17 L102 2 L108 22 L114 9 L120 15 L126 12 L140 12 L154 12 L160 5 L166 19 L172 8 L178 16 L184 10 L190 14 L196 12 L212 12 L226 12 L232 4 L238 20 L244 7 L250 17 L256 11 L262 13 L268 12 L284 12 L298 12 L304 6 L310 18 L316 3 L322 21 L328 9 L334 15 L340 12 L356 12 L370 12 L376 7 L382 17 L388 5 L394 19 L400 10 L406 14 L412 12 L428 12 L442 12 L448 8 L454 16 L460 11 L466 13 L472 12 L480 12"
+          fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+          stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+  </symbol>
+</svg>
+
+<div class="topbar">
+  <div class="topbar__in">
+    <a class="brand" href="/">grumble</a>
+    <nav class="nav nav--top" aria-label="Main"><a class="nav__link" href="/how-it-works/">How it works</a><a class="nav__link" href="/demo/" aria-current="page">Demo</a><a class="nav__link" href="/for-creators/">For creators</a></nav>
+    <!-- Honest status. grumble is not open to the public: the DM channel is not
+         live yet. Do not soften this line until it is actually true. -->
+    <span class="status status--sm"><span class="status__long">In development — not open yet</span><span class="status__short">Not open yet</span></span>
+  </div>
+  <nav class="nav nav--sub" aria-label="Main"><a class="nav__link" href="/how-it-works/">How it works</a><a class="nav__link" href="/demo/" aria-current="page">Demo</a><a class="nav__link" href="/for-creators/">For creators</a></nav>
+</div>
+
+<main id="main">
+
+<section class="page-head shell">
+  <p class="eyebrow">Sample basket</p>
+  <h1>This is what comes back.</h1>
+  <p class="lede">A worked example of one reel, all the way through. Change how many
+  you're feeding and watch the pack counts move — buying two 375&nbsp;g packs of
+  noodles instead of one is the difference between a plan and a shopping list.</p>
+</section>
+
+<section class="shell" style="margin-top:var(--s6)">
+  <div class="callout callout--warn">
+    <p><strong>This is an illustration, not a live basket.</strong> The recipe, the
+    products and the prices are examples written by hand so this page works with
+    nothing behind it. Real baskets are built from a real reel and real captured
+    prices, and grumble is <a href="/how-it-works/">not open yet</a>.</p>
+  </div>
+</section>
+
+<section class="shell" style="margin-top:var(--s5)">
+  <div class="basket" id="basket">
+    <p class="eyebrow">Basket</p>
+    <p class="basket__title">Chilli oil noodles</p>
+    <p class="basket__credit">Reconstructed from the creator's reel, and credited to them.
+    The method is written in grumble's own words — <a href="/for-creators/">why that matters</a>.</p>
+
+    <div class="serves">
+      <span class="serves__label" id="serves-label">Feeding</span>
+      <div class="serves__ctrl js-only">
+        <button class="step-btn" type="button" id="serves-minus" aria-label="One fewer serve">−</button>
+        <span class="serves__value" id="serves-value" aria-live="off">2</span>
+        <button class="step-btn" type="button" id="serves-plus" aria-label="One more serve">+</button>
+      </div>
+      <span class="serves__value js-hidden" id="serves-static">2 people</span>
+    </div>
+
+    <ul class="items" id="items">
+      <li class="item item--toggle" data-qty="200" data-unit="g" data-pack="375" data-packlabel="375 g pack" data-price="3.20">
+        <input class="item__check" type="checkbox" id="item-0" checked>
+        <label class="item__name" for="item-0">Thin wheat noodles</label>
+        <span class="item__price">$3.20</span>
+        <span class="item__meta">200 g → 1 × 375 g pack</span>
+        <span class="chips"><span class="chip chip--aller">Allergen · gluten</span></span>
+      </li>
+      <li class="item item--toggle" data-qty="4" data-unit="cloves" data-pack="10" data-packlabel="1 bulb (~10 cloves)" data-price="1.40">
+        <input class="item__check" type="checkbox" id="item-1" checked>
+        <label class="item__name" for="item-1">Garlic</label>
+        <span class="item__price">$1.40</span>
+        <span class="item__meta">4 cloves → 1 × 1 bulb (~10 cloves)</span>
+        <span class="chips"><span class="chip chip--est">Estimated</span></span><span class="item__reason">The video never said how many cloves — this is grumble&#x27;s guess, not the creator&#x27;s.</span>
+      </li>
+      <li class="item item--toggle" data-qty="16" data-unit="g" data-pack="30" data-packlabel="30 g jar" data-price="2.60">
+        <input class="item__check" type="checkbox" id="item-2" checked>
+        <label class="item__name" for="item-2">Chilli flakes</label>
+        <span class="item__price">$2.60</span>
+        <span class="item__meta">16 g → 1 × 30 g jar</span>
+        <span class="chips"><span class="chip chip--check">Check this</span></span><span class="item__reason">Could be Sichuan or Korean flakes. They are not the same heat.</span>
+      </li>
+      <li class="item item--toggle" data-qty="2" data-unit="stalks" data-pack="6" data-packlabel="1 bunch (~6 stalks)" data-price="2.50">
+        <input class="item__check" type="checkbox" id="item-3" checked>
+        <label class="item__name" for="item-3">Spring onions</label>
+        <span class="item__price">$2.50</span>
+        <span class="item__meta">2 stalks → 1 × 1 bunch (~6 stalks)</span>
+        
+      </li>
+      <li class="item item--toggle" data-qty="30" data-unit="ml" data-pack="250" data-packlabel="250 ml bottle" data-price="3.10">
+        <input class="item__check" type="checkbox" id="item-4" checked>
+        <label class="item__name" for="item-4">Light soy sauce</label>
+        <span class="item__price">$3.10</span>
+        <span class="item__meta">30 ml → 1 × 250 ml bottle</span>
+        <span class="chips"><span class="chip chip--aller">Allergen · soy, gluten</span></span>
+      </li>
+      <li class="item item--toggle" data-qty="5" data-unit="g" data-pack="100" data-packlabel="100 g pack" data-price="2.20">
+        <input class="item__check" type="checkbox" id="item-5" checked>
+        <label class="item__name" for="item-5">Sesame seeds</label>
+        <span class="item__price">$2.20</span>
+        <span class="item__meta">5 g → 1 × 100 g pack</span>
+        <span class="chips"><span class="chip chip--aller">Allergen · sesame</span></span>
+      </li>
+    </ul>
+
+    <details class="staples">
+      <summary><span>Pantry staples set aside — <span id="staple-count">2</span> items, tap to add back</span></summary>
+      <div class="staples__body">
+        <ul class="items" id="staple-items">
+      <li class="item item--toggle item--off" data-qty="15" data-unit="ml" data-pack="300" data-packlabel="300 ml bottle" data-price="4.20">
+        <input class="item__check" type="checkbox" id="item-6">
+        <label class="item__name" for="item-6">Chinese black vinegar</label>
+        <span class="item__price">$4.20</span>
+        <span class="item__meta">15 ml → 1 × 300 ml bottle</span>
+        
+      </li>
+      <li class="item item--toggle item--off" data-qty="45" data-unit="ml" data-pack="750" data-packlabel="750 ml bottle" data-price="5.50">
+        <input class="item__check" type="checkbox" id="item-7">
+        <label class="item__name" for="item-7">Neutral oil</label>
+        <span class="item__price">$5.50</span>
+        <span class="item__meta">45 ml → 1 × 750 ml bottle</span>
+        
+      </li>
+        </ul>
+        <p class="staples__note">These are the things most kitchens already have, so
+        they start switched off and out of the total. They are never deleted, and a
+        common allergen is never put in here — soy sauce and sesame stay in the main
+        list above for exactly that reason.</p>
+      </div>
+    </details>
+
+    <div class="total">
+      <span class="total__label">Estimated total</span>
+      <span class="total__value" id="total">$15.00</span>
+    </div>
+    <p class="total__note" id="total-note">6 items · 2 staples set aside · 1 to check</p>
+
+    <!-- One status region for the whole surface, atomic, and a sentence rather
+         than a bare number. Competing live regions talk over each other. -->
+    <p class="live" id="live" role="status" aria-atomic="true">Basket $15.00, 6 items, 1 to check.</p>
+
+    <div class="cta-row js-only" style="margin-top:var(--s4)">
+      <button class="btn btn--ghost" type="button" id="copy">Copy the list</button>
+      <button class="btn btn--ghost" type="button" id="reset">Reset</button>
+    </div>
+
+    <p class="handoff-mock">Ready to order at your supermarket →</p>
+    <p class="basket__cap">In the real thing this hands you into your supermarket's own
+    app, where you confirm and pay. grumble never places the order.</p>
+  </div>
+</section>
+
+<div class="shell"><span class="rumble rumble--divider" aria-hidden="true"><svg><use href="#rumble-line"/></svg></span></div>
+
+<section class="shell reveal">
+  <p class="eyebrow">What you just used</p>
+  <h2>Every flag on this page means something.</h2>
+  <div class="grid grid--3">
+    <div class="card">
+      <h3><span class="chip chip--est">Estimated</span></h3>
+      <p>The video didn't say the quantity. grumble inferred it and says so, rather
+      than printing a confident number it can't support.</p>
+    </div>
+    <div class="card">
+      <h3><span class="chip chip--check">Check this</span></h3>
+      <p>The match is uncertain enough to be worth your eyes, with a plain-English
+      reason attached. In the real pipeline this also goes to a human review queue.</p>
+    </div>
+    <div class="card">
+      <h3><span class="chip chip--aller">Allergen</span></h3>
+      <p>A common allergen. These are never collapsed into the staples group, no
+      matter how ordinary the ingredient is.</p>
+    </div>
+  </div>
+  <div class="cta-row">
+    <a class="btn btn--ghost" href="/how-it-works/">How the matching works</a>
+  </div>
+</section>
+</main>
+
+<footer class="shell">
+  <span class="rumble rumble--divider" aria-hidden="true"><svg><use href="#rumble-line"/></svg></span>
+  <div class="footer__grid">
+    <div>
+      <p class="footer__mark">grumble</p>
+      <p style="margin:8px 0 0">From the reel to the meal.</p>
+    </div>
+    <div>
+      <p class="footer__h">Pages</p>
+      <ul class="footer__list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/how-it-works/">How it works</a></li>
+        <li><a href="/demo/">Demo basket</a></li>
+        <li><a href="/for-creators/">For creators</a></li>
+        <li><a href="/privacy/">Your video and your data</a></li>
+      </ul>
+    </div>
+    <div class="footer__legal">
+      <p>grumble is an independent student project. It is not affiliated with,
+      endorsed by, or partnered with Instagram, Meta, or any supermarket.</p>
+      <p>Recipes are reconstructed from publicly shared videos and always credit the
+      original creator.</p>
+      <p>grumble does not place orders. You check out in your supermarket's own app.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
