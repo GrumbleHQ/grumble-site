@@ -132,15 +132,15 @@
 
   if (copyEl) {
     copyEl.addEventListener('click', function () {
-      var lines = ['Chilli oil noodles — feeding ' + serves, ''];
+      var lines = ['Chilli oil noodles (feeding ' + serves + ')', ''];
       rows.forEach(function (row) {
         if (!row.querySelector('.item__check').checked) return;
         var c = compute(row);
         lines.push('- ' + row.querySelector('.item__name').textContent.trim() +
-                   ' — ' + c.packs + ' × ' + row.dataset.packlabel + ' — ' + money(c.price));
+                   ', ' + c.packs + ' × ' + row.dataset.packlabel + ', ' + money(c.price));
       });
       lines.push('', 'Estimated total ' + totalEl.textContent,
-                 'Illustration only — example prices, from ' + location.origin + location.pathname);
+                 'Illustration only: example prices, from ' + location.origin + location.pathname);
 
       var text = lines.join('\n');
       var done = function () {
@@ -149,7 +149,7 @@
         setTimeout(function () { copyEl.textContent = 'Copy the list'; }, 2000);
       };
       var failed = function () {
-        liveEl.textContent = 'Could not copy — your browser blocked clipboard access.';
+        liveEl.textContent = 'Could not copy. Your browser blocked clipboard access.';
       };
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
