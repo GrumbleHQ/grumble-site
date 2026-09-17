@@ -5,9 +5,14 @@
    the comments are what they measured to.
 
    Rules from MASTER that this file is built around:
-   · No green anywhere. It is positioning, not taste.
+   · Herb green is the brand and the one action colour (chosen 17 Sep 2026
+     over paper/butter/tomato; the side-by-side mockups and the WCAG table
+     are in Grumble-Pipeline/docs/screenshots/2026-09-17/palette-mockups.html).
+     Paper on --herb measures 7.1:1, so it carries button text at any size.
+   · Tomato is a warning, never an action: the check chip, the "no" card,
+     the warn callout. Warning *text* is --tomato-ink.
+   · Butter is retired from actions; --sage takes its quiet fills.
    · No opacity-derived text greys — they hide contrast failures.
-   · Tomato is a stroke and fill colour. Warning *text* is --tomato-ink.
    · Mobile-first: bare rules are the phone, min-width queries enhance upward.
    · Animate transform and opacity only, and only outside reduced-motion.
    --------------------------------------------------------------------------- */
@@ -23,9 +28,14 @@
   --ink-mute:#706459;       /*  5.48:1 on paper — captions, meta */
   --line:#EADFCB;           /*  1.26:1 — hairlines only, never text */
   --edge:#94897B;           /*  3.27:1 on paper — control boundaries */
-  --butter:#FFD84D;         /* primary action fill; ink on it 12.34:1 */
-  --tomato:#E4572E;         /* accent stroke/fill, never text */
-  --tomato-deep:#A83512;    /* action hover fill; paper on it 6.30:1 */
+  --herb:#276340;           /* brand + primary action fill; paper on it 7.10:1 */
+  --herb-deep:#1E4D30;      /* action hover fill; paper on it 9.4:1 */
+  --sage:#DCEBDD;           /* quiet fills, step badges; --sage-ink on it 8.5:1 */
+  --sage-ink:#1E4D30;
+  --on-herb:#FFF9EE;        /* text on the herb fill: paper in the light, ink in the dark */
+  --butter:#FFD84D;         /* kept for the sun glow only; no longer an action fill */
+  --tomato:#E4572E;         /* warning stroke/fill, never text, never an action */
+  --tomato-deep:#A83512;
   --tomato-ink:#A83512;     /* warning text; 5.98:1 on --tomato-tint */
   --tomato-tint:#FFF1EC;
   --plum:#3B2244;           /* text-safe secondary; 12.18:1 on its tint */
@@ -73,6 +83,11 @@
     --ink-mute:#A99C8D;     /*  7.06:1 on paper, 6.55:1 on card */
     --line:#33281F;
     --edge:#7A6C5D;         /*  3.46:1 on card */
+    --herb:#7FCB99;         /*  9.1:1 on paper; ink on it 10.7:1, so buttons carry ink text in the dark */
+    --herb-deep:#5FB37E;
+    --sage:#24422E;
+    --sage-ink:#DDF3E4;
+    --on-herb:#14100C;
     --tomato:#FF7A54;       /*  7.36:1 on paper — still not body text */
     --tomato-deep:#A83512;
     --tomato-ink:#FFA98C;   /*  9.19:1 on its tint */
@@ -111,10 +126,10 @@ h3{font-size:19px;letter-spacing:-.025em}
 h4{font-size:16px;letter-spacing:-.02em}
 p{text-wrap:pretty}
 
-a{color:var(--plum);text-decoration:none;border-bottom:1.5px solid var(--butter)}
-@media (hover:hover){a:hover{border-bottom-color:var(--tomato)}}
+a{color:var(--plum);text-decoration:none;border-bottom:1.5px solid var(--sage)}
+@media (hover:hover){a:hover{border-bottom-color:var(--herb)}}
 a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{
-  outline:2.5px solid var(--tomato);outline-offset:3px;border-radius:3px;
+  outline:2.5px solid var(--herb);outline-offset:3px;border-radius:3px;
 }
 
 .shell{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter)}
@@ -133,7 +148,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{
 }
 
 .skip{
-  position:absolute;left:12px;top:-72px;z-index:20;background:var(--butter);
+  position:absolute;left:12px;top:-72px;z-index:20;background:var(--herb);color:var(--on-herb);
   color:#231A15;border:1.5px solid #231A15;border-radius:var(--r-sm);
   padding:11px 18px;font-weight:600;transition:top var(--dur-fast) var(--ease);
 }
@@ -148,7 +163,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{
 
 /* ==================================================== rumble line ======== */
 
-.rumble{display:block;width:100%;height:18px;color:var(--tomato)}
+.rumble{display:block;width:100%;height:18px;color:var(--herb)}
 .rumble svg{display:block;width:100%;height:100%}
 .rumble--divider{color:var(--line);height:14px;margin-block:var(--section)}
 .rumble--hero{height:20px;margin-block:var(--s3) 0}
@@ -202,12 +217,12 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{
 
 .status{
   display:inline-flex;align-items:center;gap:var(--s2);
-  background:var(--butter);color:#231A15;border:1.5px solid #231A15;
+  background:var(--sage);color:var(--sage-ink);border:1.5px solid var(--sage-ink);
   border-radius:var(--r-pill);padding:6px 14px 6px 11px;
   font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;
   white-space:nowrap;
 }
-.status::before{content:"";width:8px;height:8px;border-radius:50%;background:#E4572E;flex:none}
+.status::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--herb);flex:none}
 .status--sm{font-size:11px;padding:5px 12px 5px 9px}
 .status__short{display:none}
 @media (max-width:560px){
@@ -224,14 +239,14 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);
   min-height:48px;padding:13px var(--s5);border-radius:12px;cursor:pointer;
-  background:var(--butter);color:#231A15;border:1.5px solid #231A15;
+  background:var(--herb);color:var(--on-herb);border:1.5px solid var(--herb);
   font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.01em;
   transition:transform var(--dur-fast) var(--ease),
              background-color var(--dur-fast) var(--ease),
              color var(--dur-fast) var(--ease);
 }
 @media (hover:hover){
-  .btn:hover{background:var(--tomato-deep);color:#FFF9EE;border-color:var(--tomato-deep);transform:translateY(-1.5px)}
+  .btn:hover{background:var(--herb-deep);color:var(--on-herb);border-color:var(--herb-deep);transform:translateY(-1.5px)}
 }
 .btn:active{transform:translateY(0)}
 .btn--ghost{
@@ -254,7 +269,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{
 @media (min-width:900px){
   .hero__grid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(32px,5vw,56px)}
 }
-h1 .accent{color:var(--tomato)}
+h1 .accent{color:var(--herb)}
 .lede{font-size:clamp(17px,2.2vw,20px);color:var(--ink-soft);margin:var(--s5) 0 0;max-width:36em}
 
 /* ===================================================== cards, grids ====== */
@@ -318,7 +333,7 @@ h1 .accent{color:var(--tomato)}
 }
 .chip--est{color:var(--plum);border-color:var(--plum);background:var(--plum-tint)}
 .chip--check{color:var(--tomato-ink);border-color:var(--tomato-ink);background:var(--tomato-tint)}
-.chip--aller{color:#231A15;border-color:#231A15;background:var(--butter)}
+.chip--aller{color:var(--tomato-ink);border-color:var(--tomato-ink);background:var(--tomato-tint)}
 
 .total{
   display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);
@@ -355,7 +370,7 @@ h1 .accent{color:var(--tomato)}
   font-family:var(--body);display:grid;place-items:center;
   transition:background-color var(--dur-fast) var(--ease),border-color var(--dur-fast) var(--ease);
 }
-@media (hover:hover){.step-btn:hover:not(:disabled){background:var(--butter);border-color:#231A15;color:#231A15}}
+@media (hover:hover){.step-btn:hover:not(:disabled){background:var(--sage);border-color:var(--sage-ink);color:var(--sage-ink)}}
 .step-btn:disabled{opacity:.35;cursor:not-allowed}
 .serves__value{font-family:var(--mono);font-weight:600;font-size:18px;min-width:2.5ch;text-align:center}
 
@@ -373,7 +388,7 @@ h1 .accent{color:var(--tomato)}
 }
 .item--off .item__name,.item--off .item__meta,.item--off .item__price,.item--off .chips{opacity:.42}
 .item--off .item__name{text-decoration:line-through}
-.item--toggle:has(.item__check:focus-visible){outline:2.5px solid var(--tomato);outline-offset:2px}
+.item--toggle:has(.item__check:focus-visible){outline:2.5px solid var(--herb);outline-offset:2px}
 
 .staples{margin-top:var(--s4);border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden}
 .staples>summary{
@@ -403,7 +418,7 @@ h1 .accent{color:var(--tomato)}
 .panel h2{color:var(--panel-ink);margin-inline:auto}
 .panel p{color:var(--panel-soft);margin:var(--s3) auto 0;max-width:42ch;font-size:16px}
 .panel .cta-row{justify-content:center}
-.panel a:not(.btn){color:var(--butter)}
+.panel a:not(.btn){color:var(--sage)}
 .panel .btn--ghost{color:var(--panel-ink);border-color:rgba(255,249,238,.34)}
 @media (hover:hover){
   .panel .btn--ghost:hover{background:rgba(255,249,238,.10);color:var(--panel-ink);border-color:var(--panel-ink)}
@@ -424,7 +439,7 @@ h1 .accent{color:var(--tomato)}
 .prose strong{color:var(--ink);font-weight:600}
 .callout{
   margin-top:var(--s5);padding:var(--s4) var(--s5);border-radius:var(--r-sm);
-  background:var(--card);border:1px solid var(--line);border-left:3px solid var(--butter);
+  background:var(--card);border:1px solid var(--line);border-left:3px solid var(--herb);
 }
 .callout p{margin-top:0}
 .callout--warn{border-left-color:var(--tomato)}
@@ -441,7 +456,7 @@ footer{padding-bottom:clamp(48px,7vw,88px);color:var(--ink-mute);font-size:13.5p
 .footer__h{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-mute);margin:0 0 var(--s3)}
 .footer__list{list-style:none;margin:0;padding:0;display:grid;gap:var(--s2)}
 .footer__list a{color:var(--ink-soft);border-bottom:0;font-size:14.5px}
-@media (hover:hover){.footer__list a:hover{color:var(--ink);border-bottom:1.5px solid var(--butter)}}
+@media (hover:hover){.footer__list a:hover{color:var(--ink);border-bottom:1.5px solid var(--herb)}}
 .footer__legal p{margin:0 0 var(--s2);max-width:46ch}
 
 /* ========================================================== motion ======= */
